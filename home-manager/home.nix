@@ -30,11 +30,9 @@
       vscode
       discord
       obsidian
-      nodejs
       prusa-slicer
       gcc
       libgcc
-      nodePackages.eas-cli
     ];
   };
 
