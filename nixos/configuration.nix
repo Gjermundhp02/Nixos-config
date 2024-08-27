@@ -107,7 +107,8 @@
       pinnedJDK
       sdk
       pkg-config
-      unstable.nodePackages.eas-cli
+      nodePackages.eas-cli
+      nodejs
     ];
     variables = rec {
       JAVA_HOME = pinnedJDK;
