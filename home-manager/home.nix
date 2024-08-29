@@ -33,6 +33,7 @@
       prusa-slicer
       gcc
       libgcc
+      lm_sensors
     ];
   };
 
@@ -80,6 +81,15 @@
         rebuild = "sudo nixos-rebuild switch --flake ~/.config/home-manager/#";
         buildtest = "sudo nixos-rebuild test --flake ~/.config/home-manager/#";
         mkcd = "mkdir -p $1 && cd $1";
+      };
+    };
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      config = {
+        whitelist = {
+          prefix = ["/home/gjermund/Login/nucleus"];
+        };
       };
     };
   };
