@@ -34,6 +34,8 @@
       gcc
       libgcc
       lm_sensors
+      stremio
+      brave
     ];
   };
 
@@ -78,8 +80,8 @@
         ll = "ls -l";
         la = "ls -la";
         l = "ls";
-        rebuild = "sudo nixos-rebuild switch --flake ~/.config/home-manager/#";
-        buildtest = "sudo nixos-rebuild test --flake ~/.config/home-manager/#";
+        rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#";
+        buildtest = "sudo nixos-rebuild test --flake ~/dotfiles/#";
         mkcd = "mkdir -p $1 && cd $1";
       };
     };
@@ -88,8 +90,9 @@
       enableBashIntegration = true;
       config = {
         whitelist = {
-          prefix = ["/home/gjermund/Login/nucleus"];
+          prefix = ["/home/gjermund/Documents/Login/nucleus"];
         };
+        nix-direnv.enable = true;
       };
     };
   };
