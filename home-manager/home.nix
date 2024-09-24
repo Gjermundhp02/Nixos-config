@@ -95,6 +95,9 @@
         nix-direnv.enable = true;
       };
     };
+    k9s = {
+      enable = true;
+    };
   };
 
   # Nicely reload system units when changing configs
