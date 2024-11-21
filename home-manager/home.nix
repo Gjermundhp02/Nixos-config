@@ -27,7 +27,6 @@
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
       barrier
-      vscode
       discord
       obsidian
       prusa-slicer
@@ -36,6 +35,10 @@
       lm_sensors
       stremio
       brave
+      vscode
+      kubernetes-helm
+      inputs.openconnect-sso.packages.${pkgs.system}.default
+      spotify
     ];
   };
 
@@ -96,6 +99,12 @@
       };
     };
     k9s = {
+      enable = true;
+    };
+  };
+
+  services = {
+    remmina = {
       enable = true;
     };
   };
