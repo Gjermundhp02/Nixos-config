@@ -66,13 +66,55 @@
       enable = true;
       matchBlocks = {
           "skyhigh" = {
-              hostname = "10.212.170.43";
-              user = "ubuntu";
+            hostname = "10.212.170.43";
+            user = "ubuntu";
           };
           "server" = {
-              user = "gjermund";
-              hostname = "128.39.140.146";
-              port = 420;
+            user = "gjermund";
+            hostname = "128.39.140.146";
+            port = 420;
+          };
+          "login-1-idrac-3Y8HDD2" = {
+            user = "local";
+            hostname = "128.39.142.138";
+            localForwards = [
+              {
+                bind.port = 443;
+                host.address = "192.168.1.105";
+                host.port = 443;
+              }
+            ];
+            extraOptions = {
+              "SessionType" = "none";
+            };
+          };
+          "login-2-idrac-3YBGDD2" = {
+            user = "local";
+            hostname = "128.39.142.138";
+            localForwards = [
+              {
+                bind.port = 443;
+                host.address = "192.168.1.141";
+                host.port = 443;
+              }
+            ];
+            extraOptions = {
+              "SessionType" = "none";
+            };
+          };
+          "login-idrac-3-3LVJ3K2" = {
+            user = "local";
+            hostname = "128.39.142.138";
+            localForwards = [
+              {
+                bind.port = 443;
+                host.address = "192.168.1.54";
+                host.port = 443;
+              }
+            ];
+            extraOptions = {
+              "SessionType" = "none";
+            };
           };
       };
     };
