@@ -69,6 +69,17 @@
               echo "Android development environment ready"
               '';
           };
+          python = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.python312
+              pkgs.uv
+            ];
+          };
+          dotnet = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.dotnet-sdk
+            ];
+          };
         };
       }
     );
