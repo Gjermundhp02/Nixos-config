@@ -26,8 +26,19 @@
     username = username;
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
+      barrier
+      discord
+      obsidian
+      prusa-slicer
       gcc
       libgcc
+      lm_sensors
+      stremio
+      brave
+      vscode
+      kubernetes-helm
+      inputs.openconnect-sso.packages.${pkgs.system}.default
+      spotify
     ];
   };
 
@@ -38,6 +49,17 @@
       userEmail = "gjermund.pedersen@gmail.com";
       extraConfig = {
         pull.rebase = false;
+      };
+    };
+    firefox = {
+      enable = true;
+      profiles.gjermund = {
+        settings = {
+          "full-screen-api.transition-duration.enter" = 0;
+          "full-screen-api.transition-duration.leave" = 0;
+          "full-screen-api.warning.timeout" = 0;
+          "signon.rememberSignons" = false;
+        };
       };
     };
     ssh = {
@@ -118,8 +140,16 @@
         nix-direnv.enable = true;
       };
     };
+    k9s = {
+      enable = true;
+    };
   };
 
+  services = {
+    remmina = {
+      enable = true;
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
