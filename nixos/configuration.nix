@@ -135,7 +135,7 @@
   };
 
   # Might not need this
-  services.openssh.enable = true;
+  services.openssh.enable = false;
 
   users.users = {
     ${username} = {

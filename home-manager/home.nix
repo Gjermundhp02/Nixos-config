@@ -39,6 +39,8 @@
       kubernetes-helm
       inputs.openconnect-sso.packages.${pkgs.system}.default
       spotify
+      ansible_2_16
+      zip
     ];
   };
 
@@ -126,8 +128,7 @@
         la = "ls -la";
         l = "ls";
         rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#";
-        buildtest = "sudo nixos-rebuild test --flake ~/dotfiles/#";
-        mkcd = "mkdir -p $1 && cd $1";
+        testbuild = "sudo nixos-rebuild test --flake ~/dotfiles/#";
       };
     };
     direnv = {
@@ -139,9 +140,6 @@
         };
         nix-direnv.enable = true;
       };
-    };
-    k9s = {
-      enable = true;
     };
   };
 
