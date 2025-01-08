@@ -69,16 +69,17 @@
       nixos = "nixos";
       wsl = "wsl";
     in {
+      # FIXME replace with your hostname
       ${nixos} = let hostname=nixos; in nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs username hostname;};
         modules = [
           # > Our main nixos configuration file <
-          ./hosts/laptop/nixos/configuration.nix
+          ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
+            home-manager.users.${username} = import ./home-manager/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit inputs outputs username hostname;
@@ -92,13 +93,14 @@
         specialArgs = {inherit inputs outputs username hostname;};
         system = "x86_64-linux";
         modules = [
-          ./hosts/wsl/nixos/configurationWSL.nix
+          ./nixos/configurationWSL.nix
           vscode-server.nixosModules.default
           ({ config, pkgs, ... }: {
             services.vscode-server.enable = true;
           })
           nixos-wsl.nixosModules.default
           {
+            system.stateVersion = "24.05";
             wsl.enable = true;
 	          wsl.defaultUser = username;
           }
