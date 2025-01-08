@@ -104,8 +104,7 @@
         la = "ls -la";
         l = "ls";
         rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#";
-        buildtest = "sudo nixos-rebuild test --flake ~/dotfiles/#";
-        mkcd = "mkdir -p $1 && cd $1";
+        testbuild = "sudo nixos-rebuild test --flake ~/dotfiles/#";
       };
     };
     direnv = {

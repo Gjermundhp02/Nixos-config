@@ -52,9 +52,6 @@
         };
       };
     };
-    k9s = {
-      enable = true;
-    };
   };
 
   services = {
