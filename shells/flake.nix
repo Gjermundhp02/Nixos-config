@@ -69,6 +69,11 @@
               echo "Android development environment ready"
               '';
           };
+          js = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.nodejs_22
+            ];
+          };
           python = pkgs.mkShell rec {
             buildInputs = [
               pkgs.python312
@@ -77,7 +82,14 @@
           };
           dotnet = pkgs.mkShell rec {
             buildInputs = [
-              pkgs.dotnet-sdk
+              pkgs.dotnetCorePackages.dotnet_9.sdk
+              pkgs.vscode-fhs
+            ];
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
+          };
+          go = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.go
             ];
           };
         };
