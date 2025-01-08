@@ -92,6 +92,21 @@
               pkgs.go
             ];
           };
+          go = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.go
+            ];
+          };
+          rust = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.rust
+            ];
+          };
+          haskell = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.haskellPackages.ghc
+            ];
+          };
         };
       }
     );
