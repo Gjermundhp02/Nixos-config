@@ -110,7 +110,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
+            home-manager.users.${username} = import ./hosts/wsl/home-manager/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit inputs outputs username hostname;
