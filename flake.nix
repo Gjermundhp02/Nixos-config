@@ -81,7 +81,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./home-manager/home.nix;
+            home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit inputs outputs username hostname;
@@ -105,6 +105,16 @@
             system.stateVersion = "24.05";
             wsl.enable = true;
 	          wsl.defaultUser = username;
+          }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs outputs username hostname;
+            };
           }
         ];
       };

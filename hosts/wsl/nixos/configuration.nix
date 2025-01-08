@@ -11,17 +11,9 @@
   ...
 }: {
   # You can import other NixOS modules here
-  imports = [];
-
-  networking.hostName = hostname;
-
-  #nixpkgs = {
-  #  overlays = [
-    # Configure your nixpkgs instance
-  #  config = {
-  #    allowUnfree = true;
-  #  };
-  #};
+  imports = [
+    ../../../modules/nixos/common.nix
+  ];
 
   environment = {
     systemPackages = with pkgs; [
