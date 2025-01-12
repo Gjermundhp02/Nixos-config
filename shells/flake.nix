@@ -87,24 +87,28 @@
             ];
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
           };
-          go = pkgs.mkShell rec {
+          PROG2005 = pkgs.mkShell rec {
             buildInputs = [
               pkgs.go
             ];
           };
-          go = pkgs.mkShell rec {
-            buildInputs = [
-              pkgs.go
-            ];
-          };
-          rust = pkgs.mkShell rec {
+          PROG2006 = pkgs.mkShell rec {
             buildInputs = [
               pkgs.rust
+              pkgs.haskellPackages.ghcup
+              #ghcup
+              #cabal
+              #stack
+              #hls
+              #ghci
             ];
           };
-          haskell = pkgs.mkShell rec {
+          IDATG2004 = pkgs.mkShell rec {
             buildInputs = [
-              pkgs.haskellPackages.ghc
+              pkgs.php
+              pkgs.mariadb
+              pkgs.apacheHttpd
+              pkgs.perl
             ];
           };
         };
