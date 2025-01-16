@@ -111,6 +111,11 @@
               pkgs.perl
             ];
           };
+          DSCG2003 = pkgs.mkShell rec {
+            buildInputs = [
+              pkgs.terraform
+            ];
+          };
         };
       }
     );

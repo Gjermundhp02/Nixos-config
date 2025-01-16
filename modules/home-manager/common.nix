@@ -38,6 +38,11 @@
       userEmail = "gjermund.pedersen@gmail.com";
       extraConfig = {
         pull.rebase = false;
+        url = {
+          "git@gitlab.login.no" = {
+            insteadOf = "https://gitlab.login.no";
+          };
+        };
       };
     };
     ssh = {
