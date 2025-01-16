@@ -94,8 +94,13 @@
           };
           PROG2006 = pkgs.mkShell rec {
             buildInputs = [
-              pkgs.rust
-              pkgs.haskellPackages.ghcup
+              pkgs.cargo
+              pkgs.rustc
+              pkgs.haskellPackages.ghc
+              pkgs.haskellPackages.ghci
+              pkgs.haskellPackages.cabal-install
+              pkgs.haskellPackages.haskell-language-server
+              pkgs.stack
               #ghcup
               #cabal
               #stack
