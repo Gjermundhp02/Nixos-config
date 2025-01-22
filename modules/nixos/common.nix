@@ -57,6 +57,4 @@
       extraGroups = ["wheel"];
     };
   };
-
-  system.stateVersion = "24.05";
 }

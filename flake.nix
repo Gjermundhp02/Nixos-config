@@ -68,6 +68,7 @@
     nixosConfigurations = let 
       nixos = "nixos";
       wsl = "wsl";
+      workstation = "workstation";
     in {
       # FIXME replace with your hostname
       ${nixos} = let 
@@ -82,6 +83,24 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs outputs username hostname;
+            };
+          }
+        ];
+      };
+      ${workstation} = let
+        hostname = workstation;
+      in nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs username hostname;};
+        modules = [
+          ./hosts/workstation/nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = import ./hosts/workstation/home-manager/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit inputs outputs username hostname;

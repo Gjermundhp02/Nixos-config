@@ -39,7 +39,7 @@
       extraConfig = {
         pull.rebase = false;
         url = {
-          "git@gitlab.login.no" = {
+          "ssh://git@gitlab.login.no" = {
             insteadOf = "https://gitlab.login.no";
           };
         };
