@@ -29,11 +29,27 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  services.hardware.openrgb = {
+    enable = true;
+    motherboard = "amd";
+  };
 
   environment = {
     systemPackages = with pkgs; [
       networkmanager-openconnect
+      openrgb-with-all-plugins
     ];
+  };
+
+  programs.steam = {
+    enable = true;
+  };
+
+  fileSystems."/games" =
+  { device = "/dev/nvme0n1p6";
+    options = [ "nofail" "rw" "uid=1000" "gid=100" ];
   };
 
   virtualisation.docker = {

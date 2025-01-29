@@ -40,24 +40,19 @@
       k9s
     ];
   };
-
+  
   programs = {
     firefox = {
       enable = true;
-      profiles.gjermund = {
-        settings = {
-          "full-screen-api.transition-duration.enter" = 0;
-          "full-screen-api.transition-duration.leave" = 0;
-          "full-screen-api.warning.timeout" = 0;
-          "signon.rememberSignons" = false;
-        };
-      };
     };
   };
 
   services = {
-    remmina = {
-      enable = true;
-    };
+   remmina = {
+     enable = true;
+   };
   };
+  systemd.user.startServices = "sd-switch";
+  programs.home-manager.enable = true;
+  home.stateVersion = "24.11";
 }

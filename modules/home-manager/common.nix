@@ -31,6 +31,15 @@
     ];
   };
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+    "org/gnome/mutter" = {
+      edge-tiling = true;
+    };
+  };
+
   programs = {
     git = {
       enable = true;
@@ -108,8 +117,8 @@
         ll = "ls -l";
         la = "ls -la";
         l = "ls";
-        rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/#";
-        testbuild = "sudo nixos-rebuild test --flake ~/dotfiles/#";
+        rebuild = "sudo nixos-rebuild switch --flake ~/Nixos-config/#";
+        testbuild = "sudo nixos-rebuild test --flake ~/Nixos-config/#";
       };
     };
     direnv = {
@@ -129,5 +138,5 @@
   systemd.user.startServices = "sd-switch";
 
   programs.home-manager.enable = true;
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  #home.stateVersion = "23.11"; # Please read the comment before changing.
 }
