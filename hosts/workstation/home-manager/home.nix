@@ -38,6 +38,8 @@
       inputs.openconnect-sso.packages.${pkgs.system}.default
       spotify
       k9s
+      gnomeExtensions.dash-to-panel
+      postman
     ];
   };
   
