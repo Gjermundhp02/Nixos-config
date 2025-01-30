@@ -38,6 +38,7 @@
       inputs.openconnect-sso.packages.${pkgs.system}.default
       spotify
       k9s
+      postman
     ];
   };
 
@@ -60,4 +61,6 @@
       enable = true;
     };
   };
+
+  home.stateVersion = "23.11"; # Please read the comment before changing.
 }

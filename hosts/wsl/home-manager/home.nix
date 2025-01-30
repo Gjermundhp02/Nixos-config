@@ -19,4 +19,5 @@
     # You can also split up your configuration and import pieces of it here:
     ../../../modules/home-manager/common.nix
   ];
+  home.stateVersion = "23.11"; # Please read the comment before changing.
 }

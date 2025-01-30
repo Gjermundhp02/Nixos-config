@@ -18,16 +18,16 @@
         };
 
         pinnedJDK = pkgs.jdk17;
-        buildToolsVersion = "34.0.0";
+        buildToolsVersion = "35.0.0";
         ndkVersion = "26.1.10909125";
         androidComposition = pkgs.androidenv.composeAndroidPackages {
           cmdLineToolsVersion = "8.0";
           toolsVersion = "26.1.1";
-          platformToolsVersion = "34.0.4";
-          buildToolsVersions = [ buildToolsVersion "33.0.1" ];
+          platformToolsVersion = "35.0.2";
+          buildToolsVersions = [ buildToolsVersion "34.0.0" ];
           includeEmulator = false;
           emulatorVersion = "30.3.4";
-          platformVersions = [ "34" ];
+          platformVersions = [ "35" ];
           includeSources = false;
           includeSystemImages = false;
           systemImageTypes = [ "google_apis_playstore" ];
@@ -90,6 +90,7 @@
           PROG2005 = pkgs.mkShell rec {
             buildInputs = [
               pkgs.go
+              pkgs.delve
             ];
           };
           PROG2006 = pkgs.mkShell rec {
@@ -108,7 +109,7 @@
               #ghci
             ];
           };
-          IDATG2004 = pkgs.mkShell rec {
+          IDATG2204 = pkgs.mkShell rec {
             buildInputs = [
               pkgs.php
               pkgs.mariadb
@@ -119,6 +120,15 @@
           DSCG2003 = pkgs.mkShell rec {
             buildInputs = [
               pkgs.terraform
+            ];
+          };
+          admin-api = pkgs.mkShell rec {
+            hardeningDisable = [ "fortify" ];
+            buildInputs = [
+              go
+              redis
+              gnumake
+              delve
             ];
           };
         };
