@@ -69,6 +69,7 @@
       nixos = "nixos";
       wsl = "wsl";
       workstation = "workstation";
+      ultrapad = "ultrapad";
     in {
       # FIXME replace with your hostname
       ${nixos} = let 
@@ -83,6 +84,24 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs outputs username hostname;
+            };
+          }
+        ];
+      };
+      ${ultrapad} = let
+        hostname = ultrapad;
+      in nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs username hostname;};
+        modules = [
+          ./hosts/ultrapad/nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = import ./hosts/ultrapad/home-manager/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit inputs outputs username hostname;
