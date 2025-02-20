@@ -29,11 +29,17 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   environment = {
     systemPackages = with pkgs; [
       networkmanager-openconnect
     ];
+  };
+
+  fileSystems."/shared" =
+  { device = "/dev/nvme0n1p5";
+    options = [ "nofail" "rw" "uid=1000" "gid=100" ];
   };
 
   virtualisation.docker = {
@@ -63,6 +69,16 @@
   services.xserver.xkb = {
     layout = "no";
     variant = "";
+  };
+
+  services.asus-numberpad-driver = {
+    enable = true;
+    layout = "up5401ea";
+    wayland = false;
+    config = {
+      "activation_time" = "0.5";
+      # More Configuration Options
+    };
   };
 
   # Configure console keymap
