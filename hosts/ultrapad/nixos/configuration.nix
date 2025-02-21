@@ -55,6 +55,8 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
+  hardware.enableAllFirmware = true; 
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -84,7 +86,7 @@
   services.asus-numberpad-driver = {
     enable = true;
     layout = "up5401ea";
-    wayland = false;
+    wayland = true;
     config = {
       "activation_time" = "0.5";
       # More Configuration Options
@@ -98,10 +100,11 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    audio.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;

@@ -39,6 +39,7 @@
       spotify
       k9s
       postman
+      zoom-us
     ];
   };
 
