@@ -101,12 +101,8 @@
               pkgs.haskellPackages.ghci
               pkgs.haskellPackages.cabal-install
               pkgs.haskellPackages.haskell-language-server
+              pkgs.haskellPackages.doctest
               pkgs.stack
-              #ghcup
-              #cabal
-              #stack
-              #hls
-              #ghci
             ];
           };
           IDATG2204 = pkgs.mkShell rec {
