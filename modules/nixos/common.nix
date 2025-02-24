@@ -52,7 +52,11 @@
   time.timeZone = "Europe/Oslo";
 
   users.users = {
-    ${username} = {
+    ${username} = let
+      firstChar = builtins.substring 0 1 username;
+      rest = builtins.substring 1 (builtins.stringLength username) username;
+    in {
+      description = "Gjermund";
       isNormalUser = true;
       extraGroups = ["wheel"];
     };
