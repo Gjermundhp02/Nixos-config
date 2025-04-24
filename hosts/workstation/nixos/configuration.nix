@@ -52,6 +52,11 @@
     options = [ "nofail" "rw" "uid=1000" "gid=100" ];
   };
 
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16 * 1024; # 16GB
+  }];
+
   virtualisation.docker = {
     enable = true;
     rootless = {
@@ -88,7 +93,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
