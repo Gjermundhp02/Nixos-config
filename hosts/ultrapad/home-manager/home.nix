@@ -40,6 +40,7 @@
       k9s
       postman
       zoom-us
+      vlc
     ];
   };
 

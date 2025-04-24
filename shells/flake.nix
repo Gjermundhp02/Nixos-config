@@ -55,6 +55,7 @@
               pkg-config
               pkgs.nodePackages.eas-cli
               pkgs.nodejs_22
+              pkgs.ffmpeg
             ];
 
             JAVA_HOME = pinnedJDK;
@@ -91,19 +92,30 @@
             buildInputs = [
               pkgs.go
               pkgs.delve
+              pkgs.google-cloud-sdk
+              pkgs.zulu8
             ];
           };
           PROG2006 = pkgs.mkShell rec {
-            buildInputs = [
-              pkgs.cargo
-              pkgs.rustc
-              pkgs.haskellPackages.ghc
-              pkgs.haskellPackages.ghci
-              pkgs.haskellPackages.cabal-install
-              pkgs.haskellPackages.haskell-language-server
-              pkgs.haskellPackages.doctest
-              pkgs.stack
+            buildInputs = with pkgs; [
+              cargo
+              rustc
+              haskellPackages.ghc
+              haskellPackages.ghci
+              haskellPackages.cabal-install
+              haskellPackages.haskell-language-server
+              haskellPackages.doctest
+              stack
+              xorg.libX11
+              xorg.libXcursor
+              xorg.libXrandr
+              xorg.libXi
             ];
+
+            RUST_BACKTRACE = "1";
+            LD_LIBRARY_PATH = "${pkgs.xorg.libXi}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libX11}/lib";
+
+            RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
           };
           IDATG2204 = pkgs.mkShell rec {
             buildInputs = [
@@ -126,6 +138,32 @@
               gnumake
               delve
             ];
+          };
+          camControl = mkShell rec {
+            buildInputs = [
+              pinnedJDK
+              sdk
+              pkg-config
+              pkgs.nodePackages.eas-cli
+              pkgs.nodejs_22
+              pkgs.ffmpeg
+              pkgs.rustc
+              pkgs.cargo
+            ];
+
+            JAVA_HOME = pinnedJDK;
+            ANDROID_SDK_ROOT = "${androidComposition.androidsdk}/libexec/android-sdk";
+            ANDROID_NDK_HOME = "${ANDROID_SDK_ROOT}/ndk/${ndkVersion}";
+
+            RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+
+            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_SDK_ROOT}/build-tools/${buildToolsVersion}/aapt2";
+
+            shellHook = ''
+              alias easd="eas build --local -p android --profile preview"
+              alias cda="cd .."
+              echo "Android development environment ready"
+              '';
           };
         };
       }
