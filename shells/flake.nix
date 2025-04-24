@@ -105,6 +105,7 @@
               haskellPackages.cabal-install
               haskellPackages.haskell-language-server
               haskellPackages.doctest
+              pkgs.haskellPackages.prelude-compat
               stack
               xorg.libX11
               xorg.libXcursor
@@ -138,6 +139,24 @@
               gnumake
               delve
             ];
+          };
+          cam-control = pkgs.mkShell rec {
+            buildInputs = [
+              pinnedJDK
+              sdk
+              pkg-config
+              pkgs.nodePackages.eas-cli
+              pkgs.nodejs_22
+              pkgs.cargo
+              pkgs.rustc
+            ];
+            RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+
+            JAVA_HOME = pinnedJDK;
+            ANDROID_SDK_ROOT = "${androidComposition.androidsdk}/libexec/android-sdk";
+            ANDROID_NDK_HOME = "${ANDROID_SDK_ROOT}/ndk/${ndkVersion}";
+
+            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_SDK_ROOT}/build-tools/${buildToolsVersion}/aapt2";
           };
           camControl = mkShell rec {
             buildInputs = [
