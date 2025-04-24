@@ -105,16 +105,29 @@
               haskellPackages.cabal-install
               haskellPackages.haskell-language-server
               haskellPackages.doctest
-              pkgs.haskellPackages.prelude-compat
+              haskellPackages.prelude-compat
               stack
               xorg.libX11
               xorg.libXcursor
               xorg.libXrandr
               xorg.libXi
+              kdePackages.wayland
+              libxkbcommon
+              vulkan-loader
+              vulkan-headers
+              vulkan-tools 
             ];
 
             RUST_BACKTRACE = "1";
-            LD_LIBRARY_PATH = "${pkgs.xorg.libXi}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libX11}/lib";
+            LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+              xorg.libX11
+              xorg.libXcursor
+              xorg.libXrandr
+              xorg.libXi
+              kdePackages.wayland
+              libxkbcommon
+              vulkan-loader
+            ];
 
             RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
           };
