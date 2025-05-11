@@ -111,11 +111,11 @@
               xorg.libXcursor
               xorg.libXrandr
               xorg.libXi
-              kdePackages.wayland
-              libxkbcommon
-              vulkan-loader
-              vulkan-headers
-              vulkan-tools 
+              # kdePackages.wayland
+              # libxkbcommon
+              # vulkan-loader
+              # vulkan-headers
+              # vulkan-tools 
             ];
 
             RUST_BACKTRACE = "1";
@@ -124,9 +124,9 @@
               xorg.libXcursor
               xorg.libXrandr
               xorg.libXi
-              kdePackages.wayland
-              libxkbcommon
-              vulkan-loader
+              # kdePackages.wayland
+              # libxkbcommon
+              # vulkan-loader
             ];
 
             RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
