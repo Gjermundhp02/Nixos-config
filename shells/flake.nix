@@ -34,7 +34,7 @@
           abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
           cmakeVersions = [ "3.10.2" "3.22.1" ];
           includeNDK = true;
-          ndkVersions = [ ndkVersion ];
+          ndkVersion = ndkVersion;
           useGoogleAPIs = false;
           useGoogleTVAddOns = false;
           includeExtras = [
@@ -62,6 +62,7 @@
             ANDROID_SDK_ROOT = "${androidComposition.androidsdk}/libexec/android-sdk";
             ANDROID_NDK_HOME = "${ANDROID_SDK_ROOT}/ndk/${ndkVersion}";
 
+            # Made it so that ANDROID_NDK_HOME was ignored
             GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_SDK_ROOT}/build-tools/${buildToolsVersion}/aapt2";
 
             shellHook = ''
@@ -70,12 +71,12 @@
               echo "Android development environment ready"
               '';
           };
-          js = pkgs.mkShell rec {
+          js = pkgs.mkShell {
             buildInputs = [
               pkgs.nodejs_22
             ];
           };
-          python = pkgs.mkShell rec {
+          python = pkgs.mkShell {
             buildInputs = [
               pkgs.python312
               pkgs.uv
@@ -88,7 +89,7 @@
             ];
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
           };
-          PROG2005 = pkgs.mkShell rec {
+          PROG2005 = pkgs.mkShell {
             buildInputs = [
               pkgs.go
               pkgs.delve
@@ -96,7 +97,7 @@
               pkgs.zulu8
             ];
           };
-          PROG2006 = pkgs.mkShell rec {
+          PROG2006 = pkgs.mkShell {
             buildInputs = with pkgs; [
               cargo
               rustc
@@ -111,6 +112,8 @@
               xorg.libXcursor
               xorg.libXrandr
               xorg.libXi
+              pkg-config
+              openssl
               # kdePackages.wayland
               # libxkbcommon
               # vulkan-loader
@@ -131,7 +134,7 @@
 
             RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
           };
-          IDATG2204 = pkgs.mkShell rec {
+          IDATG2204 = pkgs.mkShell {
             buildInputs = [
               pkgs.php
               pkgs.mariadb
@@ -139,12 +142,12 @@
               pkgs.perl
             ];
           };
-          DSCG2003 = pkgs.mkShell rec {
+          DSCG2003 = pkgs.mkShell {
             buildInputs = [
               pkgs.terraform
             ];
           };
-          admin-api = pkgs.mkShell rec {
+          admin-api = pkgs.mkShell {
             hardeningDisable = [ "fortify" ];
             buildInputs = [
               go

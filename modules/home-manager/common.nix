@@ -1,13 +1,9 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 {
-  inputs,
-  outputs,
-  lib,
   config,
   pkgs,
   username,
-  hostname,
   ...
 }: let 
   discordPatcher = pkgs.writers.writePython3Bin "discord-krisp-patcher" {
@@ -73,9 +69,9 @@ in {
     ssh = {
       enable = true;
       matchBlocks = {
-          "skyhigh" = {
-            hostname = "10.212.170.43";
-            user = "ubuntu";
+          "macmini" = {
+            user = "tekkom";
+            hostname = "192.168.0.129";
           };
           "server" = {
             user = "gjermund";
