@@ -1,9 +1,10 @@
 {
   inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, android-nixpkgs }:
+  outputs = { self, nixpkgs, flake-utils }:
   flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs {
@@ -18,12 +19,12 @@
     with pkgs;
     {
       devShells = {
-      default = pkgs.mkShell rec {
+      default = pkgs.mkShell {
           buildInputs = [
             
           ];
         };
-      }
+      };
     }
   );
 }
