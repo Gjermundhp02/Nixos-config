@@ -28,6 +28,7 @@
     packages = with pkgs; [
       gcc
       libgcc
+      nh
     ];
   };
 

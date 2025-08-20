@@ -83,15 +83,15 @@
     variant = "";
   };
 
-  services.asus-numberpad-driver = {
-    enable = true;
-    layout = "up5401ea";
-    wayland = true;
-    config = {
-      "activation_time" = "0.5";
-      # More Configuration Options
-    };
-  };
+  # services.asus-numberpad-driver = {
+  #   enable = true;
+  #   layout = "up5401ea";
+  #   wayland = true;
+  #   config = {
+  #     "activation_time" = "0.5";
+  #     # More Configuration Options
+  #   };
+  # };
 
   # Configure console keymap
   console.keyMap = "no";
