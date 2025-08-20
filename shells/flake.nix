@@ -15,18 +15,19 @@
             android_sdk.accept_license = true;
             allowUnfree = true;
           };
+        isDarwin = pkgs.stdenv.isDarwin;
         };
-
         pinnedJDK = pkgs.jdk17;
-        buildToolsVersion = "35.0.0";
+        buildToolsVersion = "36.0.0";
         ndkVersion = "26.1.10909125";
         androidComposition = pkgs.androidenv.composeAndroidPackages {
-          cmdLineToolsVersion = "8.0";
-          toolsVersion = "26.1.1";
-          platformToolsVersion = "35.0.2";
-          buildToolsVersions = [ buildToolsVersion "34.0.0" ];
+          cmdLineToolsVersion = "19.0"; # CLI tools
+          toolsVersion = "26.1.1"; # Legacy tools
+          platformToolsVersion = "36.0.0"; # Platform tools
+          buildToolsVersions = [ buildToolsVersion "35.0.0" "34.0.0" ];
           includeEmulator = false;
           emulatorVersion = "30.3.4";
+          # Target Android version
           platformVersions = [ "35" ];
           includeSources = false;
           includeSystemImages = false;
@@ -71,82 +72,6 @@
               echo "Android development environment ready"
               '';
           };
-          js = pkgs.mkShell {
-            buildInputs = [
-              pkgs.nodejs_22
-            ];
-          };
-          python = pkgs.mkShell {
-            buildInputs = [
-              pkgs.python312
-              pkgs.uv
-            ];
-          };
-          dotnet = pkgs.mkShell rec {
-            buildInputs = [
-              pkgs.dotnetCorePackages.dotnet_9.sdk
-              pkgs.vscode-fhs
-            ];
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
-          };
-          PROG2005 = pkgs.mkShell {
-            buildInputs = [
-              pkgs.go
-              pkgs.delve
-              pkgs.google-cloud-sdk
-              pkgs.zulu8
-            ];
-          };
-          PROG2006 = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              cargo
-              rustc
-              haskellPackages.ghc
-              haskellPackages.ghci
-              haskellPackages.cabal-install
-              haskellPackages.haskell-language-server
-              haskellPackages.doctest
-              haskellPackages.prelude-compat
-              stack
-              xorg.libX11
-              xorg.libXcursor
-              xorg.libXrandr
-              xorg.libXi
-              pkg-config
-              openssl
-              # kdePackages.wayland
-              # libxkbcommon
-              # vulkan-loader
-              # vulkan-headers
-              # vulkan-tools 
-            ];
-
-            RUST_BACKTRACE = "1";
-            LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
-              xorg.libX11
-              xorg.libXcursor
-              xorg.libXrandr
-              xorg.libXi
-              # kdePackages.wayland
-              # libxkbcommon
-              # vulkan-loader
-            ];
-
-            RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
-          };
-          IDATG2204 = pkgs.mkShell {
-            buildInputs = [
-              pkgs.php
-              pkgs.mariadb
-              pkgs.apacheHttpd
-              pkgs.perl
-            ];
-          };
-          DSCG2003 = pkgs.mkShell {
-            buildInputs = [
-              pkgs.terraform
-            ];
-          };
           admin-api = pkgs.mkShell {
             hardeningDisable = [ "fortify" ];
             buildInputs = [
@@ -155,24 +80,6 @@
               gnumake
               delve
             ];
-          };
-          cam-control = pkgs.mkShell rec {
-            buildInputs = [
-              pinnedJDK
-              sdk
-              pkg-config
-              pkgs.nodePackages.eas-cli
-              pkgs.nodejs_22
-              pkgs.cargo
-              pkgs.rustc
-            ];
-            RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
-
-            JAVA_HOME = pinnedJDK;
-            ANDROID_SDK_ROOT = "${androidComposition.androidsdk}/libexec/android-sdk";
-            ANDROID_NDK_HOME = "${ANDROID_SDK_ROOT}/ndk/${ndkVersion}";
-
-            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_SDK_ROOT}/build-tools/${buildToolsVersion}/aapt2";
           };
           camControl = mkShell rec {
             buildInputs = [
