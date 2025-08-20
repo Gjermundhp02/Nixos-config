@@ -7,8 +7,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   nixpkgs = {
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
@@ -27,7 +26,7 @@
   in {
     settings = {
       # Enable flakes and new 'nix' command
-      experimental-features = [ "nix-command" "flakes"];
+      experimental-features = ["nix-command" "flakes"];
       # Opinionated: disable global registry
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
@@ -44,7 +43,8 @@
   environment = {
     systemPackages = with pkgs; [
       home-manager
-      nil
+      nixd
+      alejandra
     ];
   };
 
@@ -54,10 +54,10 @@
 
   users.users = {
     ${username} = let
-      firstChar = builtins.substring 0 1 username;
+      firstChar = lib.toUpper (builtins.substring 0 1 username);
       rest = builtins.substring 1 (builtins.stringLength username) username;
     in {
-      description = "Gjermund";
+      description = firstChar+rest;
       isNormalUser = true;
       extraGroups = ["wheel"];
     };
