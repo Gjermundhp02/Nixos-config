@@ -13,6 +13,12 @@
   boot.kernelModules = [ "kvm-amd" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
+  # FIX: bradcom_sta marked insecure
+  nixpkgs.config.allowInsecurePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "broadcom-sta" # aka “wl”
+    ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/ba2a615d-7d42-475c-91c4-1f0db1fe7c96";
       fsType = "ext4";
