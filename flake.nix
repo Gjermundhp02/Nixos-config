@@ -142,7 +142,7 @@
         modules = [
           ./hosts/wsl/nixos/configuration.nix
           vscode-server.nixosModules.default
-          ({ config, pkgs, ... }: {
+          ({ ... }: {
             services.vscode-server.enable = true;
           })
           nixos-wsl.nixosModules.default
