@@ -1,11 +1,11 @@
 {
-  description = "Android development environment";
+  description = "All my shells";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, flake-utils }:
+  outputs = { nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -14,7 +14,6 @@
             android_sdk.accept_license = true;
             allowUnfree = true;
           };
-        isDarwin = pkgs.stdenv.isDarwin;
         };
         pinnedJDK = pkgs.jdk17;
         buildToolsVersion = "36.0.0";
@@ -105,6 +104,14 @@
               alias cda="cd .."
               echo "Android development environment ready"
               '';
+          };
+          PROG2002 = mkShell {
+            buildInputs = with pkgs; [
+              git
+              cmake
+              libGL
+              libGLU
+            ];
           };
         };
       }
