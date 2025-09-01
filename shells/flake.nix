@@ -113,6 +113,14 @@
               libGLU
             ];
           };
+          IIKG3005 = mkShell {
+            buildInputs = with pkgs; [
+              git
+              opentofu
+              tofu-ls
+              openstackclient
+            ];
+          };
         };
       }
     );
