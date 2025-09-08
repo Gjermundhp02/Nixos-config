@@ -24,33 +24,33 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
 
   environment = {
     systemPackages = with pkgs; [
-      networkmanager-openconnect
     ];
   };
 
-  fileSystems."/shared" =
-  { device = "/dev/nvme0n1p5";
-    options = [ "nofail" "rw" "uid=1000" "gid=100" ];
+  fileSystems."/shared" = {
+    device = "/dev/nvme0n1p5";
+    options = ["nofail" "rw" "uid=1000" "gid=100"];
   };
 
   virtualisation.docker = {
     enable = true;
     rootless = {
-        enable = true;
-        setSocketVariable = true;
+      enable = true;
+      setSocketVariable = true;
     };
   };
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = [pkgs.networkmanager-openconnect];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  hardware.enableAllFirmware = true; 
+  hardware.enableAllFirmware = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -59,18 +59,28 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.desktopManager.gnome = {
+  services.desktopManager.gnome = {
     enable = true;
-    extraGSettingsOverridePackages = [ pkgs.mutter ];
+    extraGSettingsOverridePackages = [pkgs.mutter];
     extraGSettingsOverrides = ''
       [org.gnome.mutter]
       experimental-features=['scale-monitor-framebuffer']
     '';
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  
+
+  # Hyperland
+  # nix.settings = {
+  #   substituters = ["https://hyprland.cachix.org"];
+  #   trusted-substituters = ["https://hyprland.cachix.org"];
+  #   trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  # };
+
+  # programs.hyprland = {
+  #   enable = true;
+  # };
 
   # Configure keymap in X11
   services.xserver.xkb = {

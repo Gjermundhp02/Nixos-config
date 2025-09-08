@@ -34,7 +34,6 @@
       brave
       vscode
       kubernetes-helm
-      inputs.openconnect-sso.packages.${pkgs.system}.default
       spotify
       k9s
       postman
@@ -42,6 +41,10 @@
       vlc
     ];
   };
+
+  # Hyperland
+  # programs.kitty.enable = true; # required for the default Hyprland config
+  # wayland.windowManager.hyprland.enable = true;
 
   programs = {
     firefox = {

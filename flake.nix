@@ -13,11 +13,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    openconnect-sso = {
-      url = "github:ThinkChaos/openconnect-sso/fix/nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -33,7 +28,7 @@
     self,
     nixpkgs,
     home-manager,
-    nixos-wsl, 
+    nixos-wsl,
     vscode-server,
     # asus-numberpad-driver,
     ...
@@ -71,98 +66,102 @@
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = let 
+    nixosConfigurations = let
       nixos = "nixos";
       wsl = "wsl";
       workstation = "workstation";
       ultrapad = "ultrapad";
     in {
       # FIXME replace with your hostname
-      ${nixos} = let 
-        hostname=nixos; 
-      in nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs username hostname;};
-        modules = [
-          # > Our main nixos configuration file <
-          ./hosts/laptop/nixos/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
+      ${nixos} = let
+        hostname = nixos;
+      in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs username hostname;};
+          modules = [
+            # > Our main nixos configuration file <
+            ./hosts/laptop/nixos/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./hosts/laptop/home-manager/home.nix;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs username hostname;
-            };
-          }
-        ];
-      };
+              home-manager.extraSpecialArgs = {
+                inherit inputs outputs username hostname;
+              };
+            }
+          ];
+        };
       ${ultrapad} = let
         hostname = ultrapad;
-      in nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs username hostname;};
-        modules = [
-          ./hosts/ultrapad/nixos/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/ultrapad/home-manager/home.nix;
+      in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs username hostname;};
+          modules = [
+            ./hosts/ultrapad/nixos/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./hosts/ultrapad/home-manager/home.nix;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs username hostname;
-            };
-          }
-          # asus-numberpad-driver.nixosModules.default
-        ];
-      };
+              home-manager.extraSpecialArgs = {
+                inherit inputs outputs username hostname;
+              };
+            }
+            # asus-numberpad-driver.nixosModules.default
+          ];
+        };
       ${workstation} = let
         hostname = workstation;
-      in nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs username hostname;};
-        modules = [
-          ./hosts/workstation/nixos/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/workstation/home-manager/home.nix;
+      in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs username hostname;};
+          modules = [
+            ./hosts/workstation/nixos/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./hosts/workstation/home-manager/home.nix;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs username hostname;
-            };
-          }
-        ];
-      };
+              home-manager.extraSpecialArgs = {
+                inherit inputs outputs username hostname;
+              };
+            }
+          ];
+        };
       ${wsl} = let
         hostname = wsl;
-      in nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs username hostname;};
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/wsl/nixos/configuration.nix
-          vscode-server.nixosModules.default
-          ({ ... }: {
-            services.vscode-server.enable = true;
-          })
-          nixos-wsl.nixosModules.default
-          {
-            system.stateVersion = "24.05";
-            wsl.enable = true;
-	          wsl.defaultUser = username;
-          }
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./hosts/wsl/home-manager/home.nix;
+      in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs username hostname;};
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/wsl/nixos/configuration.nix
+            vscode-server.nixosModules.default
+            ({...}: {
+              services.vscode-server.enable = true;
+            })
+            nixos-wsl.nixosModules.default
+            {
+              system.stateVersion = "24.05";
+              wsl.enable = true;
+              wsl.defaultUser = username;
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./hosts/wsl/home-manager/home.nix;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs username hostname;
-            };
-          }
-        ];
-      };
+              home-manager.extraSpecialArgs = {
+                inherit inputs outputs username hostname;
+              };
+            }
+          ];
+        };
     };
   };
 }

@@ -24,7 +24,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
 
   services.hardware.openrgb = {
     enable = true;
@@ -42,21 +42,23 @@
     enable = true;
   };
 
-  fileSystems."/games" =
-  { device = "/dev/nvme0n1p6";
-    options = [ "nofail" "rw" "uid=1000" "gid=100" ];
+  fileSystems."/games" = {
+    device = "/dev/nvme0n1p6";
+    options = ["nofail" "rw" "uid=1000" "gid=100"];
   };
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 16 * 1024; # 16GB
-  }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024; # 16GB
+    }
+  ];
 
   virtualisation.docker = {
     enable = true;
     rootless = {
-        enable = true;
-        setSocketVariable = true;
+      enable = true;
+      setSocketVariable = true;
     };
   };
 
@@ -72,8 +74,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {

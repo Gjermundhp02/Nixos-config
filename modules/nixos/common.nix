@@ -57,7 +57,7 @@
       firstChar = lib.toUpper (builtins.substring 0 1 username);
       rest = builtins.substring 1 (builtins.stringLength username) username;
     in {
-      description = firstChar+rest;
+      description = firstChar + rest;
       isNormalUser = true;
       extraGroups = ["wheel"];
     };
