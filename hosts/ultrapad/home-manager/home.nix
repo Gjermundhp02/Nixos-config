@@ -35,7 +35,6 @@
       vscode
       kubernetes-helm
       spotify
-      k9s
       postman
       zoom-us
       vlc
