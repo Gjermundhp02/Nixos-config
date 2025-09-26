@@ -5,7 +5,7 @@
   pkgs,
   username,
   ...
-}: let 
+}: let
   discordPatcher = pkgs.writers.writePython3Bin "discord-krisp-patcher" {
     libraries = with pkgs.python3Packages; [
       pyelftools
@@ -38,6 +38,9 @@ in {
       gcc
       libgcc
       nh
+      libreoffice
+      kubectl
+      k9s
     ];
     activation.krispPatch = config.lib.dag.entryAfter ["writeBoundary"] ''
       run ${pkgs.findutils}/bin/find -L ${config.home.homeDirectory}/.config/discord -name 'discord_krisp.node' -exec ${discordPatcher}/bin/discord-krisp-patcher {} \;
@@ -70,57 +73,57 @@ in {
     ssh = {
       enable = true;
       matchBlocks = {
-          "macmini" = {
-            user = "tekkom";
-            hostname = "192.168.0.129";
+        "macmini" = {
+          user = "tekkom";
+          hostname = "192.168.0.129";
+        };
+        "server" = {
+          user = "gjermund";
+          hostname = "128.39.140.146";
+          port = 420;
+        };
+        "login-1-idrac-3Y8HDD2" = {
+          user = "local";
+          hostname = "128.39.142.138";
+          localForwards = [
+            {
+              bind.port = 443;
+              host.address = "192.168.1.105";
+              host.port = 443;
+            }
+          ];
+          extraOptions = {
+            "SessionType" = "none";
           };
-          "server" = {
-            user = "gjermund";
-            hostname = "128.39.140.146";
-            port = 420;
+        };
+        "login-2-idrac-3YBGDD2" = {
+          user = "local";
+          hostname = "128.39.142.138";
+          localForwards = [
+            {
+              bind.port = 443;
+              host.address = "192.168.1.141";
+              host.port = 443;
+            }
+          ];
+          extraOptions = {
+            "SessionType" = "none";
           };
-          "login-1-idrac-3Y8HDD2" = {
-            user = "local";
-            hostname = "128.39.142.138";
-            localForwards = [
-              {
-                bind.port = 443;
-                host.address = "192.168.1.105";
-                host.port = 443;
-              }
-            ];
-            extraOptions = {
-              "SessionType" = "none";
-            };
+        };
+        "login-idrac-3-3LVJ3K2" = {
+          user = "local";
+          hostname = "128.39.142.138";
+          localForwards = [
+            {
+              bind.port = 443;
+              host.address = "192.168.1.54";
+              host.port = 443;
+            }
+          ];
+          extraOptions = {
+            "SessionType" = "none";
           };
-          "login-2-idrac-3YBGDD2" = {
-            user = "local";
-            hostname = "128.39.142.138";
-            localForwards = [
-              {
-                bind.port = 443;
-                host.address = "192.168.1.141";
-                host.port = 443;
-              }
-            ];
-            extraOptions = {
-              "SessionType" = "none";
-            };
-          };
-          "login-idrac-3-3LVJ3K2" = {
-            user = "local";
-            hostname = "128.39.142.138";
-            localForwards = [
-              {
-                bind.port = 443;
-                host.address = "192.168.1.54";
-                host.port = 443;
-              }
-            ];
-            extraOptions = {
-              "SessionType" = "none";
-            };
-          };
+        };
       };
     };
     bash = {
@@ -133,6 +136,12 @@ in {
         rebuild = "sudo nixos-rebuild switch --flake ~/Nixos-config/#";
         testbuild = "sudo nixos-rebuild test --flake ~/Nixos-config/#";
       };
+      initExtra = ''
+        mkcd() {
+          mkdir -p "$1"
+          cd "$1"
+        }
+      '';
     };
     direnv = {
       enable = true;
@@ -145,7 +154,6 @@ in {
       };
     };
   };
-
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

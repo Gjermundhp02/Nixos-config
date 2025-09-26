@@ -32,12 +32,10 @@
       vscode
       kubernetes-helm
       spotify
-      k9s
       gnomeExtensions.dash-to-panel
       postman
       zoom-us
       vlc
-      libreoffice-fresh
     ];
   };
 

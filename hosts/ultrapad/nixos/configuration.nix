@@ -32,6 +32,7 @@
   };
 
   fileSystems."/shared" = {
+    # TODO: Change to exFAT
     device = "/dev/nvme0n1p5";
     options = ["nofail" "rw" "uid=1000" "gid=100"];
   };
