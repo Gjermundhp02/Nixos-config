@@ -22,6 +22,9 @@
     username = username;
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
+      android-tools
+      jetbrains.idea-ultimate
+      android-studio
       barrier
       discord
       obsidian

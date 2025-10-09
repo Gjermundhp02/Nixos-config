@@ -1,8 +1,13 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
+  inputs,
+  outputs,
+  lib,
+  config,
   pkgs,
   username,
+  hostname,
   ...
 }: {
   # You can import other NixOS modules here
@@ -24,49 +29,22 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = ["ntfs"];
-
-  services.hardware.openrgb = {
-    enable = true;
-    motherboard = "amd";
-    package = pkgs.openrgb-with-all-plugins;
-  };
-  hardware.i2c.enable = true;
-  boot = {
-    kernelModules = ["12c-dev" "12c-piix4"];
-  };
 
   environment = {
     systemPackages = with pkgs; [
+      networkmanager-openconnect
     ];
   };
-
-  programs.steam = {
-    enable = true;
-  };
-
-  fileSystems."/games" = {
-    device = "/dev/disk/by-uuid/B82C53CA2C538274";
-    options = ["nofail" "rw" "uid=1000" "gid=100"];
-  };
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024; # 16GB
-    }
-  ];
 
   virtualisation.docker = {
     enable = true;
     rootless = {
-      enable = true;
-      setSocketVariable = true;
+        enable = true;
+        setSocketVariable = true;
     };
   };
 
   networking.networkmanager.enable = true;
-  networking.networkmanager.plugins = [pkgs.networkmanager-openconnect];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -119,5 +97,5 @@
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.11";
+  system.stateVersion = "24.05";
 }

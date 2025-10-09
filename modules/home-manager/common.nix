@@ -38,6 +38,9 @@ in {
       gcc
       libgcc
       nh
+      signal-desktop
+      calibre
+      solaar
       libreoffice
       kubectl
       k9s
@@ -75,7 +78,7 @@ in {
       matchBlocks = {
         "macmini" = {
           user = "tekkom";
-          hostname = "192.168.0.129";
+          hostname = "192.168.0.128";
         };
         "server" = {
           user = "gjermund";
