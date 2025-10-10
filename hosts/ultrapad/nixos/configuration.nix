@@ -24,7 +24,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = ["ntfs"];
 
   environment = {
     systemPackages = with pkgs; [
@@ -34,7 +33,7 @@
   fileSystems."/shared" = {
     # TODO: Change to exFAT
     device = "/dev/nvme0n1p5";
-    options = ["nofail" "rw" "uid=1000" "gid=100"];
+    options = ["nofail" "users" "exec"];
   };
 
   virtualisation.docker = {
