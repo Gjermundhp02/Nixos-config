@@ -21,13 +21,28 @@
     ./hardware-configuration.nix
   ];
 
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [ intel-media-driver intel-ocl intel-vaapi-driver ];
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   environment = {
     systemPackages = with pkgs; [
+      pinentry-all
+      # OBS shit
+      vpl-gpu-rt         # oneVPL runtime for Arc/Xe/Meteor Lake
+      ffmpeg-full              # includes oneVPL/QSV replacements
     ];
+  };
+  services.dbus.packages = [ pkgs.gcr ];
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
   fileSystems."/shared" = {
@@ -52,35 +67,40 @@
 
   hardware.enableAllFirmware = true;
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-  services.desktopManager.gnome = {
+  # OBS shit
+  hardware.opengl = {
     enable = true;
-    extraGSettingsOverridePackages = [pkgs.mutter];
-    extraGSettingsOverrides = ''
-      [org.gnome.mutter]
-      experimental-features=['scale-monitor-framebuffer']
-    '';
+    extraPackages = with pkgs; [
+      intel-media-driver      # new Intel iHD VAAPI driver (required)
+    ];
   };
+
+  # Enable KDE Plasma Desktop Environment.
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  security = {
+    # If enabled, pam_wallet will attempt to automatically unlock the user’s default KDE wallet upon login.
+    # If the user has no wallet named “kdewallet”, or the login password does not match their wallet password,
+    # KDE will prompt separately after login.
+    pam = {
+      services = {
+        ${username} = {
+          kwallet = {
+            enable = true;
+            package = pkgs.kdePackages.kwallet-pam;
+          };
+        };
+      };
+    };
+  };
+
+  
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Hyperland
-  # nix.settings = {
-  #   substituters = ["https://hyprland.cachix.org"];
-  #   trusted-substituters = ["https://hyprland.cachix.org"];
-  #   trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  # };
-
-  # programs.hyprland = {
-  #   enable = true;
-  # };
 
   # Configure keymap in X11
   services.xserver.xkb = {
