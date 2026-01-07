@@ -27,14 +27,14 @@
           toolsVersion = "26.1.1"; # Legacy tools
           platformToolsVersion = "36.0.0"; # Platform tools
           buildToolsVersions = [buildToolsVersion "35.0.0" "34.0.0"];
-          includeEmulator = false;
-          emulatorVersion = "30.3.4";
+          includeEmulator = true;
+          emulatorVersion = "36.1.2";
           # Target Android version
-          platformVersions = ["35"];
+          platformVersions = ["36"];
           includeSources = false;
-          includeSystemImages = false;
+          includeSystemImages = true;
           systemImageTypes = ["google_apis_playstore"];
-          abiVersions = ["armeabi-v7a" "arm64-v8a"];
+          abiVersions = ["x86_64" "arm64-v8a"];
           cmakeVersions = ["3.10.2" "3.22.1"];
           includeNDK = true;
           ndkVersion = ndkVersion;
@@ -111,6 +111,7 @@
             };
             PROG2002 = mkShell {
               buildInputs = with pkgs; [
+                nodejs
                 git
                 gdb
                 libgcc
@@ -132,7 +133,9 @@
                 git
                 opentofu
                 tofu-ls
-                openstackclient
+                openstackclient-full
+                tflint
+                go
               ];
             };
           };

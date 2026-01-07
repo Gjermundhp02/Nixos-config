@@ -40,12 +40,24 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
+  hardware.logitech.wireless.enable = true;
+
   environment = {
     systemPackages = with pkgs; [
       home-manager
       nixd
       alejandra
     ];
+  };
+
+  # Select internationalisation properties.
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    supportedLocales = [ "en_US.UTF-8" "nb_NO.UTF-8" ];
+  };
+
+  programs.steam = {
+    enable = true;
   };
 
   networking.hostName = hostname;

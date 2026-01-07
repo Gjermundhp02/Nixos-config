@@ -25,12 +25,10 @@
       android-tools
       jetbrains.idea-ultimate
       android-studio
-      barrier
       discord
       obsidian
       prusa-slicer
       lm_sensors
-      stremio
       brave
       vscode
       kubernetes-helm
@@ -56,6 +54,18 @@
       #    "signon.rememberSignons" = false;
       #  };
       #};
+    };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        obs-source-record
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+        obs-vaapi #optional AMD hardware acceleration
+        obs-gstreamer
+        obs-vkcapture
+      ];
     };
   };
 

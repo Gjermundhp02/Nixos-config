@@ -25,7 +25,6 @@
       android-tools
       jetbrains.idea-ultimate
       android-studio
-      barrier
       discord
       obsidian
       prusa-slicer

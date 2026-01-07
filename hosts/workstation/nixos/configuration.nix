@@ -36,15 +36,6 @@
     kernelModules = ["12c-dev" "12c-piix4"];
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-    ];
-  };
-
-  programs.steam = {
-    enable = true;
-  };
-
   fileSystems."/games" = {
     device = "/dev/disk/by-uuid/B82C53CA2C538274";
     options = ["nofail" "rw" "uid=1000" "gid=100"];
@@ -70,9 +61,6 @@
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
