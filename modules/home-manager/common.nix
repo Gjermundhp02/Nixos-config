@@ -63,72 +63,18 @@ in {
   programs = {
     git = {
       enable = true;
-      userName = "gjermundhp02";
-      userEmail = "gjermund.pedersen@gmail.com";
-      extraConfig = {
-        pull.rebase = false;
-        url = {
-          "ssh://git@gitlab.login.no" = {
-            insteadOf = "https://gitlab.login.no";
-          };
-        };
+      settings.user = {
+        name = "gjermundhp02";
+        email = "gjermund.pedersen@gmail.com";
+      };
+      signing = {
+        format = "ssh";
+        signByDefault = true;
+        key = "~/.ssh/id_ed25519.pub";
       };
     };
     ssh = {
       enable = true;
-      matchBlocks = {
-        "macmini" = {
-          user = "tekkom";
-          hostname = "192.168.0.128";
-        };
-        "server" = {
-          user = "gjermund";
-          hostname = "128.39.140.146";
-          port = 420;
-        };
-        "login-1-idrac-3Y8HDD2" = {
-          user = "local";
-          hostname = "128.39.142.138";
-          localForwards = [
-            {
-              bind.port = 443;
-              host.address = "192.168.1.105";
-              host.port = 443;
-            }
-          ];
-          extraOptions = {
-            "SessionType" = "none";
-          };
-        };
-        "login-2-idrac-3YBGDD2" = {
-          user = "local";
-          hostname = "128.39.142.138";
-          localForwards = [
-            {
-              bind.port = 443;
-              host.address = "192.168.1.141";
-              host.port = 443;
-            }
-          ];
-          extraOptions = {
-            "SessionType" = "none";
-          };
-        };
-        "login-idrac-3-3LVJ3K2" = {
-          user = "local";
-          hostname = "128.39.142.138";
-          localForwards = [
-            {
-              bind.port = 443;
-              host.address = "192.168.1.54";
-              host.port = 443;
-            }
-          ];
-          extraOptions = {
-            "SessionType" = "none";
-          };
-        };
-      };
     };
     bash = {
       enable = true;
@@ -137,8 +83,6 @@ in {
         ll = "ls -l";
         la = "ls -la";
         l = "ls";
-        rebuild = "sudo nixos-rebuild switch --flake ~/Nixos-config/#";
-        testbuild = "sudo nixos-rebuild test --flake ~/Nixos-config/#";
       };
       initExtra = ''
         mkcd() {
