@@ -12,7 +12,7 @@
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
-      outputs.overlays.modifications
+      outputs.overlays.stremio
       outputs.overlays.unstable-packages
     ];
     # Configure your nixpkgs instance
@@ -39,7 +39,6 @@
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
-
   hardware.logitech.wireless.enable = true;
 
   environment = {
@@ -53,7 +52,7 @@
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    supportedLocales = [ "en_US.UTF-8" "nb_NO.UTF-8" ];
+    extraLocales = ["en_US.UTF-8/UTF-8" "nb_NO.UTF-8/UTF-8"];
   };
 
   programs.steam = {

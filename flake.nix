@@ -17,6 +17,7 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-stremio.url = "github:nixos/nixpkgs/25845a52fee515073b0bcf8503ed0f2f78ce89a5";
 
     # asus-numberpad-driver = {
     #   url = "github:asus-linux-drivers/asus-numberpad-driver";
