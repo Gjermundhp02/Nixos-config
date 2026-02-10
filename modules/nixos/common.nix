@@ -12,7 +12,6 @@
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
-      # outputs.overlays.stremio
       outputs.overlays.unstable-packages
     ];
     # Configure your nixpkgs instance
@@ -20,9 +19,6 @@
       allowUnfree = true;
     };
   };
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-  ];
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;

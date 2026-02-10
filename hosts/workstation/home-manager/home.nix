@@ -28,7 +28,6 @@
       obsidian
       prusa-slicer
       lm_sensors
-      stremio
       brave
       vscode
       kubernetes-helm
