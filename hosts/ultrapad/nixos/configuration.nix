@@ -78,6 +78,11 @@
     ];
   };
 
+  services.howdy.enable = true;
+  services.linux-enable-ir-emitter.enable = true;
+  services.howdy.control = "sufficient";
+  services.howdy.settings.core.dismiss_lockscreen = true;
+
   # Enable KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
