@@ -66,9 +66,25 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  # Enable KDE Plasma Desktop Environment.
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  security = {
+    # If enabled, pam_wallet will attempt to automatically unlock the user’s default KDE wallet upon login.
+    # If the user has no wallet named “kdewallet”, or the login password does not match their wallet password,
+    # KDE will prompt separately after login.
+    pam = {
+      services = {
+        ${username} = {
+          kwallet = {
+            enable = true;
+            package = pkgs.kdePackages.kwallet-pam;
+          };
+        };
+      };
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
