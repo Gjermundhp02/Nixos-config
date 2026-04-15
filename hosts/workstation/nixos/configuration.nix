@@ -39,6 +39,7 @@
   fileSystems."/games" = {
     device = "/dev/disk/by-uuid/B82C53CA2C538274";
     options = ["nofail" "rw" "uid=1000" "gid=100"];
+    fsType = "ntfs";
   };
 
   swapDevices = [

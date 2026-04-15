@@ -42,7 +42,6 @@
       "i686-linux"
       "x86_64-linux"
       "aarch64-darwin"
-      "x86_64-darwin"
     ];
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
@@ -67,7 +66,6 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = let
-      wsl = "wsl";
       workstation = "workstation";
       ultrapad = "ultrapad";
     in {
@@ -103,36 +101,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${username} = import ./hosts/workstation/home-manager/home.nix;
-
-              home-manager.extraSpecialArgs = {
-                inherit inputs outputs username hostname;
-              };
-            }
-          ];
-        };
-      ${wsl} = let
-        hostname = wsl;
-      in
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs username hostname;};
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/wsl/nixos/configuration.nix
-            vscode-server.nixosModules.default
-            ({...}: {
-              services.vscode-server.enable = true;
-            })
-            nixos-wsl.nixosModules.default
-            {
-              system.stateVersion = "24.05";
-              wsl.enable = true;
-              wsl.defaultUser = username;
-            }
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./hosts/wsl/home-manager/home.nix;
 
               home-manager.extraSpecialArgs = {
                 inherit inputs outputs username hostname;
