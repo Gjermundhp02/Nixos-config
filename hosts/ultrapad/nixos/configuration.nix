@@ -49,6 +49,7 @@
     # TODO: Change to exFAT
     device = "/dev/nvme0n1p5";
     options = ["nofail" "users" "exec"];
+    fsType = "ext4";
   };
 
   virtualisation.docker = {
