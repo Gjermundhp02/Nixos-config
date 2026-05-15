@@ -62,6 +62,8 @@
 
   time.timeZone = "Europe/Oslo";
 
+  services.pcscd.enable = true;
+
   users.users = {
     ${username} = let
       firstChar = lib.toUpper (builtins.substring 0 1 username);

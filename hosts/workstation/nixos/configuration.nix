@@ -21,6 +21,12 @@
     ./hardware-configuration.nix
   ];
 
+  environment = {
+    systemPackages = with pkgs; [
+      kdePackages.partitionmanager
+    ];
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -113,9 +119,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
-  # Might not need this
-  services.openssh.enable = false;
 
   users.users = {
     ${username} = {
