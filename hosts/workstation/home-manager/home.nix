@@ -22,8 +22,6 @@
     username = username;
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
-      android-tools
-      android-studio
       discord
       obsidian
       prusa-slicer

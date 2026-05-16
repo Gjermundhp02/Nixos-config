@@ -40,6 +40,8 @@
   };
   hardware.logitech.wireless.enable = true;
 
+  services.tailscale.enable = true;
+
   environment = {
     systemPackages = with pkgs; [
       home-manager
