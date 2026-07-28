@@ -33,6 +33,8 @@
       postman
       zoom-us
       vlc
+      firefox
+      kdePackages.kalk
     ];
   };
 
@@ -41,17 +43,6 @@
   # wayland.windowManager.hyprland.enable = true;
 
   programs = {
-    firefox = {
-      enable = true;
-      #profiles.gjermund = {
-      #  settings = {
-      #    "full-screen-api.transition-duration.enter" = 0;
-      #    "full-screen-api.transition-duration.leave" = 0;
-      #    "full-screen-api.warning.timeout" = 0;
-      #    "signon.rememberSignons" = false;
-      #  };
-      #};
-    };
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [

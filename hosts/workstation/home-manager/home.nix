@@ -34,13 +34,11 @@
       postman
       zoom-us
       vlc
+      firefox
     ];
   };
 
   programs = {
-    firefox = {
-      enable = true;
-    };
   };
 
   services = {

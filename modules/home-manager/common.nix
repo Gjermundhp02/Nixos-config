@@ -46,6 +46,7 @@ in {
       k9s
       prismlauncher
       stremio-linux-shell
+      proton-vpn
     ];
     activation.krispPatch = config.lib.dag.entryAfter ["writeBoundary"] ''
       run ${pkgs.findutils}/bin/find -L ${config.home.homeDirectory}/.config/discord -name 'discord_krisp.node' -exec ${discordPatcher}/bin/discord-krisp-patcher {} \;
