@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "asus-numberpad-driver": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777284944,
+        "narHash": "sha256-4bdnP3w44aXRWvzCy4zWT0+mjcunW/g/CeWjKHQgKvE=",
+        "owner": "asus-linux-drivers",
+        "repo": "asus-numberpad-driver",
+        "rev": "5d2efa38c4b84bdce611d27391c63e374f507b14",
+        "type": "github"
+      },
+      "original": {
+        "owner": "asus-linux-drivers",
+        "ref": "v6.9.2",
+        "repo": "asus-numberpad-driver",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -78,11 +99,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1778869304,
-        "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
+        "lastModified": 1782723713,
+        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d233902339c02a9c334e7e593de68855ad26c4cb",
+        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
         "type": "github"
       },
       "original": {
@@ -110,6 +131,7 @@
     },
     "root": {
       "inputs": {
+        "asus-numberpad-driver": "asus-numberpad-driver",
         "home-manager": "home-manager",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",

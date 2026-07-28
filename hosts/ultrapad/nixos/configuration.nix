@@ -3,6 +3,7 @@
 {
   pkgs,
   username,
+  lib,
   ...
 }: {
   # You can import other NixOS modules here
@@ -21,9 +22,22 @@
     ./hardware-configuration.nix
   ];
 
+  # Force the system to use the modern 'xe' driver instead of the buggy 'i915'
+  boot.initrd.kernelModules = ["xe"];
+
+  boot.kernelParams = [
+    "i915.force_probe=!7d55"
+    "xe.force_probe=7d55"
+    "xe.enable_psr=0" # Disables Panel Self Refresh (fixes pipe calculation errors)
+    "xe.enable_panel_replay=0"
+  ];
+
+  # Ensure you are running a modern kernel where the 'xe' driver is highly stable
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [ intel-media-driver intel-ocl intel-vaapi-driver ];
+    extraPackages = with pkgs; [intel-media-driver intel-ocl intel-vaapi-driver];
   };
 
   # Bootloader.
@@ -34,11 +48,13 @@
     systemPackages = with pkgs; [
       pinentry-all
       # OBS shit
-      vpl-gpu-rt         # oneVPL runtime for Arc/Xe/Meteor Lake
-      ffmpeg-full              # includes oneVPL/QSV replacements
+      vpl-gpu-rt # oneVPL runtime for Arc/Xe/Meteor Lake
+      ffmpeg-full # includes oneVPL/QSV replacements
+      clamav
     ];
   };
-  services.dbus.packages = [ pkgs.gcr ];
+  services.clamav.daemon.enable = true;
+  services.dbus.packages = [pkgs.gcr];
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
@@ -75,7 +91,7 @@
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver      # new Intel iHD VAAPI driver (required)
+      intel-media-driver # new Intel iHD VAAPI driver (required)
     ];
   };
 
@@ -104,9 +120,20 @@
     };
   };
 
-  
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  services.asus-numberpad-driver = {
+    enable = true;
+    layout = "up5401ea";
+    wayland = true;
+    runtimeDir = "/run/user/1000/";
+    waylandDisplay = "wayland-0";
+    ignoreWaylandDisplayEnv = false;
+    config = {
+      # e.g. "activation_time" = "0.5";
+      # More Configuration Options
+    };
+  };
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -152,7 +179,7 @@
 
   users.users = {
     ${username} = {
-      extraGroups = ["networkmanager" "docker"];
+      extraGroups = ["networkmanager" "docker" "i2c" "input" "uinput"];
     };
   };
 

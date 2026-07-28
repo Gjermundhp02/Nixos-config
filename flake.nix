@@ -18,10 +18,10 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
-    # asus-numberpad-driver = {
-    #   url = "github:asus-linux-drivers/asus-numberpad-driver";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    asus-numberpad-driver = {
+      url = "github:/asus-linux-drivers/asus-numberpad-driver/v6.9.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -30,7 +30,7 @@
     home-manager,
     nixos-wsl,
     vscode-server,
-    # asus-numberpad-driver,
+    asus-numberpad-driver,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -86,7 +86,7 @@
                 inherit inputs outputs username hostname;
               };
             }
-            # asus-numberpad-driver.nixosModules.default
+            asus-numberpad-driver.nixosModules.default
           ];
         };
       ${workstation} = let
