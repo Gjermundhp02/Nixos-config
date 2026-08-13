@@ -92,16 +92,6 @@ in {
           controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "no";
         };
-        "scaleSet" = {
-          hostname = "128.39.140.191";
-          user = "gjermund";
-          identityFile = "~/.ssh/id_ed25519";
-        };
-        "nas" = {
-          hostname = "192.168.0.170";
-          user = "nixos";
-          identityFile = "~/.ssh/id_ed25519";
-        };
       };
     };
     bash = {
