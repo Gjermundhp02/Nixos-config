@@ -43,6 +43,17 @@ in {
       solaar
       libreoffice
       kubectl
+      (vscode-with-extensions.override {
+        vscodeExtensions = with vscode-extensions;
+          [
+            vscode-extensions.anthropic.claude-code
+            vscode-extensions.bbenoist.nix
+            pkief.material-icon-theme
+            vscode-extensions.mkhl.direnv
+            vscode-extensions.golang.go
+            vscode-extensions.hashicorp.terraform
+          ];
+      })
       k9s
       prismlauncher
       stremio-linux-shell

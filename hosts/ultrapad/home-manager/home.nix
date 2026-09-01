@@ -27,7 +27,6 @@
       prusa-slicer
       lm_sensors
       brave
-      vscode
       kubernetes-helm
       spotify
       postman
