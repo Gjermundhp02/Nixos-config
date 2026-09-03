@@ -13,11 +13,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
-    vscode-server.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-
     asus-numberpad-driver = {
       url = "github:/asus-linux-drivers/asus-numberpad-driver/v6.9.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,8 +23,6 @@
     self,
     nixpkgs,
     home-manager,
-    nixos-wsl,
-    vscode-server,
     asus-numberpad-driver,
     ...
   } @ inputs: let

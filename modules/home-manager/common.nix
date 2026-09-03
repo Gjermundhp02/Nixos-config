@@ -48,6 +48,7 @@ in {
           [
             vscode-extensions.anthropic.claude-code
             vscode-extensions.bbenoist.nix
+            vscode-extensions.jnoortheen.nix-ide
             pkief.material-icon-theme
             vscode-extensions.mkhl.direnv
             vscode-extensions.golang.go
